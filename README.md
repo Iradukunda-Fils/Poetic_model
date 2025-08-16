@@ -24,6 +24,8 @@ The model learns from Shakespeare’s writings and produces new text that *looks
 ├── README.md            # This file
 └── requirements.txt     # Dependencies
 
+```bash
+
 
 🚀 Getting Started
 1️⃣ Clone the repo
