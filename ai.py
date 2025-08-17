@@ -62,25 +62,73 @@ def sample(preds, temperature=1.0):
     preds = exp_preds / np.sum(exp_preds)
     return np.argmax(np.random.multinomial(1, preds, 1))
 
-def generate_text(length=300, temperature=0.5):
-    start_index = random.randint(0, len(text) - SEQ_LENGTH - 1)
-    sentence = text[start_index:start_index+SEQ_LENGTH]
-    generated = sentence
+# def generate_text(length=300, temperature=0.5):
+#     start_index = random.randint(0, len(text) - SEQ_LENGTH - 1)
+#     sentence = text[start_index:start_index+SEQ_LENGTH]
+#     generated = sentence
     
-    for _ in range(length):
-        x = np.zeros((1, SEQ_LENGTH, len(characters)))
-        for t, char in enumerate(sentence):
-            x[0, t, char_to_index[char]] = 1
+#     for _ in range(length):
+#         x = np.zeros((1, SEQ_LENGTH, len(characters)))
+#         for t, char in enumerate(sentence):
+#             x[0, t, char_to_index[char]] = 1
             
-        preds = model.predict(x, verbose=0)[0]
-        next_index = sample(preds, temperature)
+#         preds = model.predict(x, verbose=0)[0]
+#         next_index = sample(preds, temperature)
+#         next_char = index_to_char[next_index]
+#         generated += next_char
+#         sentence = sentence[1:] + next_char
+#     return generated
+
+def generate_text_from_seed(seed_text, length=300, temperature=1.0):
+    """
+    Generate text from a seed string using the trained LSTM model.
+
+    Parameters:
+        seed_text (str): The starting text.
+        length (int): Number of characters to generate.
+        temperature (float): Controls randomness/creativity.
+    
+    Returns:
+        str: Generated text.
+    """
+    # Make sure seed text is at least SEQ_LENGTH long
+    if len(seed_text) < SEQ_LENGTH:
+        seed_text = " " * (SEQ_LENGTH - len(seed_text)) + seed_text
+    else:
+        seed_text = seed_text[-SEQ_LENGTH:]  # trim to last SEQ_LENGTH characters
+
+    generated = seed_text
+
+    for _ in range(length):
+        # Prepare input
+        x_pred = np.zeros((1, SEQ_LENGTH, len(char_to_index)))
+        for t, char in enumerate(seed_text):
+            if char in char_to_index:
+                x_pred[0, t, char_to_index[char]] = 1.0
+
+        # Predict probabilities for next character
+        preds = model.predict(x_pred, verbose=0)[0]
+
+        # Apply temperature
+        preds = np.asarray(preds).astype("float64")
+        preds = np.log(preds + 1e-8) / temperature  # avoid log(0)
+        exp_preds = np.exp(preds)
+        preds = exp_preds / np.sum(exp_preds)
+
+        # Sample next character
+        next_index = np.random.multinomial(1, preds, 1).argmax()
         next_char = index_to_char[next_index]
+
+        # Append and slide the window
         generated += next_char
-        sentence = sentence[1:] + next_char
+        seed_text = seed_text[1:] + next_char
+
     return generated
 
+
 if __name__ == "__main__": 
-    
     for t in [0.2, 0.5, 0.8, 1.0]:
-        print(f"\n---- Temperature: {t} ----")
-        print(generate_text(300, temperature=t))
+    #     print(f"\n---- Temperature: {t} ----")
+    #     print(generate_text(300, temperature=t))
+        generated_text = generate_text_from_seed(input("Enter the input text as starting of the poetry: ").strip(), length=500, temperature=0.7)
+        print(generated_text)

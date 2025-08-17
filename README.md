@@ -29,9 +29,14 @@ The model learns from Shakespeare’s writings and produces new text that *looks
 
 
 🚀 Getting Started
+---
+
 1️⃣ Clone the repo
+---
+```
 git clone https://github.com/your-username/shakespeare-text-gen.git
 cd shakespeare-text-gen
+
 
 2️⃣ Install dependencies
 pip install -r requirements.txt
@@ -105,12 +110,15 @@ This project is licensed under the MIT License.
 
 
 🚀 Getting Started
+---
+
 1️⃣ Clone the repo
+---
 
 ```
 
-git clone https://github.com/your-username/shakespeare-text-gen.git
-cd shakespeare-text-gen
+[git clone https://github.com/Iradukunda-Fils/Poetic_model.git](https://github.com/Iradukunda-Fils/Poetic_model.git)
+cd Poetic_model
 
 ```
 
@@ -121,6 +129,8 @@ cd shakespeare-text-gen
 uv sync 
 or: uv venv && uv sync
 
+source ./.venv/bin/activate
+
 ```
 
 
@@ -128,9 +138,15 @@ or: uv venv && uv sync
 ---
 python train.py
 
-4️⃣ Generate Shakespeare-like text
+4️⃣ Generate Poetic text
 ---
-python generate.py --seed "To be, or not to be"
+
+```
+python3 ai.py 
+
+Enter the input text as starting of the poetry: To be, or not to be
+
+```
 
 🎛️ Parameters You Can Tune
 <details> <summary>🔎 Click to expand</summary>
