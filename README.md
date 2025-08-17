@@ -140,20 +140,32 @@ sequence_length: Length of input characters given to the model
 sample_size: How many characters to generate in the output
 
 </details>
+---
+
 📊 Example Output
 
 Input (seed):
 
 ROMEO:
 
+---
+
+---
 
 Generated Output:
+
+```
 
 ROMEO:
 What means the prince? Ah me!  
 I would not have her live; she shall be none.
 
+```
+---
+---
+
 🧠 How It Works
+
 
 Text is split into characters instead of words.
 
@@ -182,6 +194,8 @@ Predictions are sampled repeatedly → producing continuous text.
 🤝 Contributing
 
 PRs and issues are welcome! If you’d like to improve training speed, add features, or optimize generation — feel free to contribute.
+
+---
 
 📜 License
 
