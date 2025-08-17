@@ -118,12 +118,14 @@ cd shakespeare-text-gen
 ---
 uv sync 
 or: uv venv && uv sync
----
+
 
 3️⃣ Train the model
+---
 python train.py
 
 4️⃣ Generate Shakespeare-like text
+---
 python generate.py --seed "To be, or not to be"
 
 🎛️ Parameters You Can Tune
@@ -143,8 +145,10 @@ sample_size: How many characters to generate in the output
 ---
 
 📊 Example Output
+---
 
 Input (seed):
+---
 
 ```
 
@@ -155,6 +159,7 @@ ROMEO:
 ---
 
 Generated Output:
+---
 
 ```
 
@@ -167,7 +172,7 @@ I would not have her live; she shall be none.
 ---
 
 🧠 How It Works
-
+---
 
 Text is split into characters instead of words.
 
@@ -178,6 +183,7 @@ The model predicts the next character.
 Predictions are sampled repeatedly → producing continuous text.
 
 🌟 Why Character-Level?
+---
 
 ✅ Learns spelling & punctuation
 
@@ -200,9 +206,10 @@ PRs and issues are welcome! If you’d like to improve training speed, add featu
 ---
 
 📜 License
-
 ---
+
+```
 
 This project is licensed under the MIT License.
 
----
+```
