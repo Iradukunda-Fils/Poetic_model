@@ -1,235 +1,123 @@
-# 📖 Shakespeare Character-Level Text Generation
+# 📝 Shakespeare Character-Level Text Generator
 
-This project trains a neural network to generate text **character by character** in the style of **William Shakespeare**.  
-The model learns from Shakespeare’s writings and produces new text that *looks like Shakespeare wrote it* (though not always making sense).  
-
----
-
-## ✨ Features
-- 📜 **Dataset**: Works with Shakespeare’s text corpus.  
-- 🔠 **Character-level modeling**: Learns spelling, punctuation, and style directly at the character level.  
-- 🤖 **RNN/LSTM model**: Predicts the **next character** in a sequence.  
-- 🎭 **Text generation**: Creates new "Shakespeare-like" dialogues.  
-- ⚡ **Configurable**: Adjust temperature, sequence length, and sampling strategy for creative control.  
+This project is an **NLP (Natural Language Processing)** application that generates Shakespeare-like text using a **Recurrent Neural Network (RNN)** with **LSTM (Long Short-Term Memory)** layers.  
+It is trained on Shakespeare's works at the **character level** and can generate creative new text based on a given seed input.
 
 ---
 
 ## 📂 Project Structure
-```
-.
-├── data/                # Shakespeare dataset
-├── model.py             # Model architecture (RNN/LSTM/GRU)
-├── train.py             # Training loop
-├── generate.py          # Text generation script
-├── README.md            # This file
-└── requirements.txt     # Dependencies
 
 ```
----
-
-
-🚀 Getting Started
----
-
-1️⃣ Clone the repo
----
+├── ai.py # Core AI model & text generation logic
+├── data
+│ ├── shakespeare.txt # Training dataset (Shakespeare text corpus)
+│ └── textgenerator.h5 # Pre-trained LSTM model
+├── main.py # Entry point for running the generator
+├── pyproject.toml # Project dependencies & metadata
+├── README.md # Project documentation
+└── uv.lock # Lock file for dependencies
 ```
-git clone https://github.com/your-username/shakespeare-text-gen.git
-cd shakespeare-text-gen
 
+```
+# Create a virtual environment
+uv venv
 
-2️⃣ Install dependencies
-pip install -r requirements.txt
+# Activate the environment
+source .venv/bin/activate  # On Linux / macOS
+.venv\Scripts\activate     # On Windows
 
-3️⃣ Train the model
-python train.py
+# Install dependencies
+uv sync
 
-4️⃣ Generate Shakespeare-like text
-python generate.py --seed "To be, or not to be"
+```
 
-🎛️ Parameters You Can Tune
-<details> <summary>🔎 Click to expand</summary>
-
-temperature: Controls randomness of predictions
-
-Low (e.g., 0.2) → predictable, repetitive text
-
-High (e.g., 1.0) → more creative, surprising text
-
-sequence_length: Length of input characters given to the model
-
-sample_size: How many characters to generate in the output
-
-</details>
-📊 Example Output
-
-Input (seed):
-
-ROMEO:
-
-
-Generated Output:
-
-ROMEO:
-What means the prince? Ah me!  
-I would not have her live; she shall be none.
-
-🧠 How It Works
-
-Text is split into characters instead of words.
-
-A sequence of characters is fed into the model.
-
-The model predicts the next character.
-
-Predictions are sampled repeatedly → producing continuous text.
-
-🌟 Why Character-Level?
-
-✅ Learns spelling & punctuation
-
-✅ Can generate new words never seen before
-
-❌ Sometimes struggles with long-term meaning
-
-📌 Future Improvements
-
- Add word-level model for comparison
-
- Train on other authors
-
- Deploy as a web app with interactive text generation
-
-🤝 Contributing
-
-PRs and issues are welcome! If you’d like to improve training speed, add features, or optimize generation — feel free to contribute.
-
-📜 License
-
-This project is licensed under the MIT License.
-
-
-🚀 Getting Started
----
-
-1️⃣ Clone the repo
+You will be prompted to enter a seed text:
 ---
 
 ```
 
-[git clone https://github.com/Iradukunda-Fils/Poetic_model.git](https://github.com/Iradukunda-Fils/Poetic_model.git)
-cd Poetic_model
+Enter the input text as starting of the poetry: To be or not to be
 
 ```
 
-2️⃣ Install dependencies
+
+The model will generate new Shakespeare-like text continuing your input.
+
+🔥 Key Features
 ---
 
-```
-uv sync 
-or: uv venv && uv sync
+Character-level language model (predicts next character instead of next word).
 
-source ./.venv/bin/activate
+Uses LSTM layers to remember long-term dependencies in text.
 
-```
+Temperature sampling to control creativity:
 
+Low temperature (0.2) → more predictable, repetitive text.
 
-3️⃣ Train the model
----
-python train.py
+High temperature (1.0) → more creative, but may produce nonsense.
 
-4️⃣ Generate Poetic text
----
-
-```
-python3 ai.py 
-
-Enter the input text as starting of the poetry: To be, or not to be
-
-```
-
-🎛️ Parameters You Can Tune
-<details> <summary>🔎 Click to expand</summary>
-
-temperature: Controls randomness of predictions
-
-Low (e.g., 0.2) → predictable, repetitive text
-
-High (e.g., 1.0) → more creative, surprising text
-
-sequence_length: Length of input characters given to the model
-
-sample_size: How many characters to generate in the output
-
-</details>
----
+Accepts custom seed input to guide text generation.
 
 📊 Example Output
 ---
 
-Input (seed):
----
+Seed: "to be or not to be"
 
-```
+Generated (temp=0.7):
 
-ROMEO:
-
-```
-
----
-
-Generated Output:
----
-
-```
-
-ROMEO:
-What means the prince? Ah me!  
-I would not have her live; she shall be none.
-
-```
-
----
+to be or not to be, that is the question: 
+whether 'tis nobler in the mind to suffer 
+the slings and arrows of outrageous fortune, 
+or to take arms against a sea of troubles...
 
 🧠 How It Works
 ---
 
-Text is split into characters instead of words.
+Data Preparation
 
-A sequence of characters is fed into the model.
+Loads Shakespeare text.
 
-The model predicts the next character.
+Encodes characters into numbers (char_to_index, index_to_char).
 
-Predictions are sampled repeatedly → producing continuous text.
+Creates training sequences of length SEQ_LENGTH=40.
 
-🌟 Why Character-Level?
+Model
+
+LSTM (256 units) + Dense Softmax layer.
+
+Trained with categorical crossentropy + RMSProp optimizer.
+
+Text Generation
+
+Starts from a seed text.
+
+Predicts next character probabilities.
+
+Applies temperature sampling to control creativity.
+
+Appends the chosen character and continues.
+
+📦 Dependencies
 ---
 
-✅ Learns spelling & punctuation
+tensorflow
 
-✅ Can generate new words never seen before
+numpy
 
-❌ Sometimes struggles with long-term meaning
+uv (for dependency management, optional)
 
-📌 Future Improvements
-
- Add word-level model for comparison
-
- Train on other authors
-
- Deploy as a web app with interactive text generation
-
-🤝 Contributing
-
-PRs and issues are welcome! If you’d like to improve training speed, add features, or optimize generation — feel free to contribute.
-
+✨ Future Improvements
 ---
+
+Train with more epochs for richer text.
+
+Add word-level language model for more semantic meaning.
+
+Deploy as a simple Flask/Streamlit web app for interactive use.
 
 📜 License
 ---
 
-```
+MIT License © 2025 Your Name
 
-This project is licensed under the MIT License.
-
-```
+---
