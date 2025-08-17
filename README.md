@@ -146,9 +146,11 @@ sample_size: How many characters to generate in the output
 
 Input (seed):
 
+```
+
 ROMEO:
 
----
+```
 
 ---
 
@@ -161,7 +163,7 @@ What means the prince? Ah me!
 I would not have her live; she shall be none.
 
 ```
----
+
 ---
 
 🧠 How It Works
