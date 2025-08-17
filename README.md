@@ -18,8 +18,11 @@ It is trained on Shakespeare's works at the **character level** and can generate
 └── uv.lock # Lock file for dependencies
 ```
 
+Create a virtual environment and run the project
+---
+
 ```
-# Create a virtual environment
+
 uv venv
 
 # Activate the environment
@@ -28,6 +31,8 @@ source .venv/bin/activate  # On Linux / macOS
 
 # Install dependencies
 uv sync
+
+uv run ai.py
 
 ```
 
