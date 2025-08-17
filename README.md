@@ -107,12 +107,12 @@ This project is licensed under the MIT License.
 🚀 Getting Started
 1️⃣ Clone the repo
 
----
+```
 
 git clone https://github.com/your-username/shakespeare-text-gen.git
 cd shakespeare-text-gen
 
----
+```
 
 2️⃣ Install dependencies
 ---
