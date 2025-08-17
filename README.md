@@ -15,7 +15,7 @@ The model learns from Shakespeare’s writings and produces new text that *looks
 ---
 
 ## 📂 Project Structure
-```bash
+```
 .
 ├── data/                # Shakespeare dataset
 ├── model.py             # Model architecture (RNN/LSTM/GRU)
@@ -24,7 +24,8 @@ The model learns from Shakespeare’s writings and produces new text that *looks
 ├── README.md            # This file
 └── requirements.txt     # Dependencies
 
-```bash
+```
+---
 
 
 🚀 Getting Started
@@ -105,11 +106,19 @@ This project is licensed under the MIT License.
 
 🚀 Getting Started
 1️⃣ Clone the repo
+
+---
+
 git clone https://github.com/your-username/shakespeare-text-gen.git
 cd shakespeare-text-gen
 
+---
+
 2️⃣ Install dependencies
-pip install -r requirements.txt
+---
+uv sync 
+or: uv venv && uv sync
+---
 
 3️⃣ Train the model
 python train.py
@@ -176,4 +185,8 @@ PRs and issues are welcome! If you’d like to improve training speed, add featu
 
 📜 License
 
+---
+
 This project is licensed under the MIT License.
+
+---
