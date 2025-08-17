@@ -116,8 +116,12 @@ cd shakespeare-text-gen
 
 2️⃣ Install dependencies
 ---
+
+```
 uv sync 
 or: uv venv && uv sync
+
+```
 
 
 3️⃣ Train the model
